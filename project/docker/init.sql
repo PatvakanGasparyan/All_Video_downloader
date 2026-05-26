@@ -1,0 +1,13 @@
+CREATE DATABASE IF NOT EXISTS downloader_db;
+USE downloader_db;
+
+CREATE TABLE IF NOT EXISTS videos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(512) NOT NULL,
+    original_url TEXT NOT NULL,
+    filename VARCHAR(512) NOT NULL,
+    duration VARCHAR(32) DEFAULT '00:00',
+    filesize VARCHAR(32) DEFAULT 'N/A',
+    quality VARCHAR(16) NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

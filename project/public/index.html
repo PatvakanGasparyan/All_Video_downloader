@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Загрузчик Видео</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Загрузчик Видео</h1>
+        
+        <div class="download-form">
+            <input type="text" id="urlInput" placeholder="Вставьте ссылку на видео (YouTube, Vimeo и др.)">
+            <select id="qualitySelect" title="Качество видео">
+                <option value="small">Малый размер (~до 80 МБ)</option>
+                <option value="360">360p</option>
+                <option value="480">480p</option>
+                <option value="720" selected>720p</option>
+                <option value="1080">1080p</option>
+                <option value="best">Лучшее качество</option>
+            </select>
+            <button id="downloadBtn" onclick="startDownload()">Скачать</button>
+        </div>
+
+        <div id="progressPanel" class="progress-pipe hidden" aria-hidden="true">
+            <div class="progress-track">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+            <div id="progressInfo" class="progress-info hidden">
+                <span id="progressPercent">0%</span>
+                <span id="progressMeta"></span>
+            </div>
+        </div>
+
+        <div id="status" class="status-message"></div>
+
+        <h2>История загрузок</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Размер</th>
+                    <th>Длительность</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody id="videoTableBody">
+                </tbody>
+        </table>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

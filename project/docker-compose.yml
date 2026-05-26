@@ -1,0 +1,42 @@
+services:
+  app:
+    build: .
+    container_name: downloader-app
+    ports:
+      - "8000:8000"
+    environment:
+      MYSQL_HOST: db
+      MYSQL_PORT: 3306
+      MYSQL_USER: downloader
+      MYSQL_PASSWORD: downloader
+      MYSQL_DATABASE: downloader_db
+    volumes:
+      - downloads_data:/app/downloads
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.0
+    container_name: downloader-db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: downloader_db
+      MYSQL_USER: downloader
+      MYSQL_PASSWORD: downloader
+    # MySQL is only used inside Docker network (no host port — avoids conflict with local MySQL)
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    restart: unless-stopped
+
+volumes:
+  downloads_data:
+  mysql_data:
