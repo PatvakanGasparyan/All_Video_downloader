@@ -52,18 +52,18 @@ jobs:
             fi
 
             # ── Create .env file from secrets ──
-            echo "MYSQL_HOST=${{ secrets.MYSQL_HOST }}" > $APP_DIR/.env
-            echo "MYSQL_USER=${{ secrets.MYSQL_USER }}" >> $APP_DIR/.env
-            echo "MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}" >> $APP_DIR/.env
-            echo "MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}" >> $APP_DIR/.env
-            echo "MYSQL_PORT=${{ secrets.MYSQL_PORT }}" >> $APP_DIR/.env
+            echo "MYSQL_HOST=${{ secrets.MYSQL_HOST }}" > $APP_DIR/project/.env
+            echo "MYSQL_USER=${{ secrets.MYSQL_USER }}" >> $APP_DIR/project/.env
+            echo "MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}" >> $APP_DIR/project/.env
+            echo "MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}" >> $APP_DIR/project/.env
+            echo "MYSQL_PORT=${{ secrets.MYSQL_PORT }}" >> $APP_DIR/project/.env
 
             # ── Verify .env is valid ──
             echo "=== .env contents (masked) ==="
-            cat $APP_DIR/.env | sed 's/=.*/=***/'
+            cat $APP_DIR/project/.env | sed 's/=.*/=***/'
 
             # ── Remove old volume on first deploy to avoid password mismatch ──
-            cd $APP_DIR
+            cd $APP_DIR/project
             sudo docker compose down --remove-orphans --volumes
 
             # ── Build and start ──
