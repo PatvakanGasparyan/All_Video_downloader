@@ -38,7 +38,7 @@ jobs:
             sudo systemctl start docker
 
             # ── Clone or pull the repo ──
-            APP_DIR=~/All_Video_downloader/project
+            APP_DIR=~/All_Video_downloader
 
             if [ -d "$APP_DIR/.git" ]; then
               echo "Pulling latest changes..."
